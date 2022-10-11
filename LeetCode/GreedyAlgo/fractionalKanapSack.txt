@@ -1,0 +1,40 @@
+class Item {
+    int value, weight;
+    Item(int x, int y){
+        this.value = x;
+        this.weight = y;
+    }
+    @Override
+    public void toString(){
+        System.out.println(this.value+" "+this.weight);
+    }
+}
+
+
+class Solution
+{
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n) 
+    {
+        // Your code here
+        Arrays.sort(arr,(a,b)->(b.value/b.weight)-(a.value/a.weight));
+        double maxValue=0;
+        double currentWeightOfKnapSack=0;int i=0;
+        while(currentWeightOfKnapSack != W && i<arr.length){
+            Item item = arr[i];
+            if(item.weight <= W-currentWeightOfKnapSack){
+                maxValue+=Double.valueOf(item.value);
+                currentWeightOfKnapSack+=Double.valueOf(item.weight);
+            }
+            else if(item.weight >Double.valueOf(W)-currentWeightOfKnapSack){
+                double availableWeight = Double.valueOf(W)-currentWeightOfKnapSack;
+                double weight = Double.valueOf(item.weight);
+                maxValue+= ((Double.valueOf(item.value)/weight)*availableWeight);
+                currentWeightOfKnapSack+=availableWeight;
+                break;
+            }
+            i++;
+        }
+        return maxValue;
+    }
+}

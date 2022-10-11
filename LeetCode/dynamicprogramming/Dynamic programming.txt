@@ -1,0 +1,15 @@
+every time the program remembers something from its previous itertaion 
+and gonna use in its current itertation.
+
+DP can be used in 2 ways
+Tabulation
+memoization
+
+
+1.Array
+* maxSubArray
+* buy and sell stock
+* Pascal triangle
+
+2.Array2
+

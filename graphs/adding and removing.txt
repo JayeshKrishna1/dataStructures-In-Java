@@ -1,0 +1,44 @@
+addNode("jayesh");
+addNode("suba");
+addEdge("jayesh","suba");
+jayesh is label;
+we gonna create a node for jayesh,suba and gonna make a edge from jayesh to suba
+so the graph will be
+  jayesh -> node
+   /
+ suba  -> node
+
+we gonna have 2 hashmaps
+one hashmap with key,value pair as:
+    Label : Node
+another hashmap as
+    Node : List<Node>
+
+First hashmap functionality:
+[key,value] as follows
+[jayesh, Node : jayesh]
+[suba,Node : suba]
+it is created when creating a node for label.
+it is to mainly used to get the node for a particular label and by getting the node we can check its relations.
+
+
+Second hashmap functionality:
+[key,value] as follows
+[Node : jayesh, List : [Node : suba]]
+[Node : suba, List : []] the list stores all the nodes which are connected to key node.
+it is created when we create a edge to a particular node.
+
+--------------------------------------------------------------------------------------
+for removing a node we wanna note one thing:
+
+if we directly remove the node from first map then we cant able to access the Second map.
+coz the key of second map is node.
+
+so first we wanna the consider removing the node from the list of second map.
+then we wanna remove that node from both the maps.
+
+for removing a edge:
+we wanna get the position of fromNode in second map.
+then we wanna go through its relations and then remove the toNode.
+
+-----------------------------------------------------------------------------------------

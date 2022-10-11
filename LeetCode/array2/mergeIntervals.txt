@@ -1,0 +1,38 @@
+sort the pair of integers
+
+int[][] arr = {{1,5},{4,5},{2,6},{7,10},{6,8},{5,10}};
+       Arrays.sort(arr,(a,b)-> (a[0]<b[0]) ?   -1 :  1);
+       System.out.println(Arrays.deepToString(arr));
+
+*************
+refer dummy.java file once
+************
+import java.util.*;
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        List<int[]> list = new ArrayList<>();
+        Arrays.sort(intervals,(a,b)->a[0]-b[0]);
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+        for(int[] arr : intervals){
+            if(end>=arr[0]){
+                end = Math.max(end,arr[1]);
+            }
+            else{
+                list.add(new int[]{start,end});
+                start = arr[0];
+                end = arr[1];
+            }
+        }
+        list.add(new int[]{start,end});//not this line..
+        return list.toArray(new int[0][]);
+    }
+}
+******************************Important one*************************
+//here while we proceding with last row in 2d matrix we gonna have the start,end as previous row values.
+if it doesnt have any merge we gonna reassign the start end as the current index values and after the loop wil end
+so we need to add that to the list after the loop end. if the last index values merge with start and end we will 
+find the largest btwn the end and arr[0] and end the loop.so we need to add that as well after loop end.
+******Important one******** 
+
+O(N logN) for sorting and O(N) for iterating coz as gonna iterate the 2nd array as multiple 1d array

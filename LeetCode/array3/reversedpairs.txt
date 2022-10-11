@@ -1,0 +1,58 @@
+//divide and conq algo
+//similar to inversion of array in array2 section
+
+class Solution {
+    public int reversePairs(int[] nums) {
+        return mergeSort(nums,0);
+    }
+    public int mergeSort(int[] nums,int count){
+        if(nums.length < 2){
+            return count;
+        }
+        int middle = nums.length/2;
+        int[] left = new int[middle];
+        for(int i=0;i<middle;i++){
+            left[i] = nums[i];
+        }
+        int[] right = new int[nums.length - middle];
+        for(int i=middle;i<nums.length;i++){
+            right[i-middle] = nums[i];
+        }
+        count = mergeSort(left,count);
+        count = mergeSort(right,count);
+        
+        int l=0;
+        int r = 0;
+        while(l <left.length && r < right.length){
+            if(left[l] > (double)2*right[r]){
+                count += left.length-l;
+                r++;
+            }
+            else{
+                l++;
+            }
+        }
+        merge(nums,left,right);
+        return count;
+    }
+    public void merge(int[] nums,int[] left,int[] right){
+        int i=0,j=0,k=0;
+        while(i < left.length && j < right.length){
+            if(left[i]>right[j]){
+                nums[k++] = right[j++];
+            }
+            else{
+                nums[k++] = left[i++];
+            }
+        }
+        while(i < left.length){
+            nums[k++] = left[i++];
+        }
+        while(j < right.length){
+            nums[k++] = right[j++];
+        }
+    }
+}
+link for the problem explanation : https://youtu.be/PPOsH6NFNSE
+time -> O(NlogN)
+space -> O(N)

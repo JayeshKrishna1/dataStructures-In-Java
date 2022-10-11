@@ -1,0 +1,70 @@
+GAP theorem(dont know the intuition)
+
+import java.util.*;
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        if(n == 0){
+            return;
+        }
+        //gap theorem
+        int j=0;
+        double gap =0;//note by default if a divivde a int by int it will do floor. so inorder to avoid we use double as our type for gap.
+        // System.out.println(Math.ceil(m+n/2));
+        gap =(int)Math.ceil((m+n)/2);
+        for(int i=m;i<m+n;i++){
+            nums1[i] = nums2[j];
+            j++;
+        }
+        while(gap>=1){
+            int pointer = (int)gap;//pointer gonna be index of our array so it must be int it cannot be 1.0 or 3.0 like that
+            int k=0;
+            while(pointer < m+n){
+                if(nums1[pointer] < nums1[k]){
+                    int temp = nums1[pointer];
+                    nums1[pointer] = nums1[k];
+                    nums1[k] = temp;
+                }
+                pointer++;
+                k++;
+            }
+            // System.out.println(gap);
+            gap = (gap==1)? 0  :Math.ceil(gap/2);
+        }
+    }
+}
+O(log2N)*O(N)//we divide the array size by 2 in each step and in each step we itertate the array in worst case we will travere the entire array
+O(1)
+
+Insertion sort approach
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        if(n == 0){
+            return;
+        }
+        for(int i=0;i<m;i++){
+            if(nums1[i]>nums2[0]){
+                int temp = nums1[i];
+                nums1[i] = nums2[0];
+                nums2[0] = temp;
+                
+                int first = nums2[0];
+                int j=1;
+                while(j<n && first>nums2[j]){
+                    nums2[j-1] = nums2[j];
+                    j++;
+                }
+                nums2[j-1] = first;
+                
+            }
+        }
+        int j=0;
+        for(int i=m;i<m+n;i++){
+            nums1[i] = nums2[j];
+            j++;
+        }
+    }
+}
+O(n)*O(m)
+space : O(1)
+

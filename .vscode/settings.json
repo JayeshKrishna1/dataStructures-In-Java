@@ -1,0 +1,14 @@
+{
+  "java.project.sourcePaths": [
+    "practice",
+    "graphs",
+    "Trie",
+    "LeetCode/array2",
+    "Heap",
+    "BinaryTree",
+    "Arrays",
+    "AVLTree",
+    "Ajira",
+    "Advanced java"
+  ]
+}

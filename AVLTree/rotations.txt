@@ -1,0 +1,99 @@
+10
+  20        => balancefactor(20) < 0 => leftrotate
+    30
+ 10 is right heavy
+ leftrotate(10)
+
+ 10
+   30        => balancefactor(30) > 0 => right-left rotate
+ 20
+ 10 is right heavy
+ rightrotate(30)  => 10
+                       20
+                         30
+leftrotate(10)
+In the above 2 cases the node is right heavy and it rotation type depends on its rightchild balancefactor
+--------------------------------------------------------------
+     30
+   20       => balancefactor(20) > 0 => rightrotate
+ 10
+ 30 is left heavy
+ rightrotate(30)
+
+     30
+   20        => balancefactor(20) < 0 => left-right rotate
+     25
+ leftrotate(20)  => 30
+                   25
+                  20
+rightrotate(30)
+In the above 2 cases the node is left heavy and it rotation type depends on its leftChild balancefactor
+---------------------------------------------------------------
+
+if a node is right heavy it may be of two types
+10             10
+  20      or     20 
+     30         15
+left rotation or right-left rotation depends on the balancing factor of rightchild of the node
+left rotation => balancefactor(20) < 0
+right-left rotation => balancefactor(20) > 0
+--------------------------------------------------------------------
+if the node is left heavy it may be of two types
+    30            30   
+   20     or    20 
+  10             25
+ right rotation or left-right rotation depends on the balancing factor of left child of node
+ right rotation => balancefactor(20) > 0
+ left-right rotation => balancefactor(20) < 0
+ ----------------------------------------------------------------------
+ left-right rotation => left rotation followed by right rotation
+ leftrotate(root.leftChild) followed by rightrotate(root)
+
+ right-left rotation => right rotation followed by left rotation
+ rightrotate(root.rightchild) followed by leftrotate(root)
+ ----------------------------------------------------------------------
+ performing rotations
+
+ leftrotate
+
+ 10                  20
+  20  leftrotate=> 10  30
+   30   
+   but if 20 has left child we cant overlap it with 10
+   10   root
+     20 newroot
+   15  30
+
+   after rotation 20 will become newroot
+   note that all values in right of 10 are greater than 10 itself so we need to add the 15 to right of 10 and append 10 to 20
+   leftrotate(10) =>
+       20 new root
+    10   30
+      15
+newroot = root.rightchild
+root.rightchild = newroot.leftChild
+newroot.leftChild = root
+
+after this the height of root and newroot will be changed so we need to call the height function on both nodes.
+-----------------------------------------------------------------------------------
+performing rotations 
+
+right rotatate
+
+   30                        20
+  20   rightrotate(30)=>   10  30 
+10   
+but if 20 has rightchild it will overlap
+    30 root
+   20 newroot
+ 10  25   
+
+ after rotation 20 will become newroot
+ note that all nodes on left of 30 are less than 30 itself so we need to add right of 20 to left of 30 and append 30 to newroot
+
+rightrotate(30)
+newroot = root.leftChild
+root.leftChild = newroot.rightchild
+newroot.rightchild = root
+
+---------------------------------------------------------------

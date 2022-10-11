@@ -1,0 +1,45 @@
+import java.util.*;
+class Solution {
+    public void setZeroes(int[][] matrices) {
+        int rows = matrices.length;
+        int columns = matrices[0].length;
+        boolean cols = true; 
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(j==0 && matrices[i][j] == 0){
+                    cols = false;
+                    continue;
+                }
+                if(matrices[i][j] == 0){
+                    matrices[i][0] = 0;
+                    matrices[0][j] = 0;
+                }
+            }
+        }
+        for(int i=rows-1;i>=0;i--){
+                for(int j=columns-1;j>=0;j--){
+                    if(j==0 && cols == false){
+                        matrices[i][j] = 0;
+                        continue;                        
+                    }
+                    else if(j==0 && cols == true){
+                        continue;
+                    }
+                    if(matrices[i][0] == 0 || matrices[0][j] == 0){
+                        matrices[i][j] = 0;
+                    }
+                }
+            }
+    }
+}
+traversing a entire matrix = rows*columns
+traversing a particular row and column = row+column
+traversing a particular row/column = row/column
+
+here N-row M-column
+time = O(2(N*M))
+space = O(1) =>  as we do the process inplace
+
+brute force
+time = O((N*M) + (N+M))
+space = O(2*No of zeros) 

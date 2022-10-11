@@ -1,0 +1,69 @@
+int n = 5;
+        //n!/(r!*(n-r)!)
+        for(int j=1;j<=5;j++){
+            int space = n-j;
+            while(space >=1){
+                System.out.print(" ");
+                space--;
+            }
+        for(int i =1;i<=j;i++){
+            int temp = j-1;
+            int temp1 = i-1;
+            // System.out.println(temp+" "+temp1);
+        System.out.print(fact(temp)/(fact(temp1)*fact(temp-temp1))+" ");
+        }
+        System.out.println(" ");
+        }
+        
+    }
+    public static int fact(int n){
+        if(n == 1 || n == 0){
+            return 1;
+        }
+        return n*fact(n-1);
+    }
+
+	List<Integer> list1 = new ArrayList<>();
+		List<Integer> list2 = null;
+		list1.add(1);
+		list1.add(2);
+		int i=1;
+		if(i == 1)
+		System.out.println(list2.get(0));
+		list2 = list1;
+ the above will show null pointer runtime exception
+
+ 	List<Integer> list1 = new ArrayList<>();
+		List<Integer> list2;
+		list1.add(1);
+		list1.add(2);
+		int i=1;
+		if(i == 1)
+		System.out.println(list2.get(0));
+		list2 = list1;
+the above will show complier error.
+
+import java.util.*;
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> row;
+        List<Integer> prev = new ArrayList<>();
+        for(int i=0;i<numRows;i++){
+            row = new ArrayList<>();
+            for(int j=0;j<=i;j++){
+                if(j==0 || j==i){
+                    row.add(1);
+                }
+                else{
+                    row.add(prev.get(j-1) + prev.get(j));
+                }
+            }
+            prev = row;
+            result.add(row);
+        }
+     return result;   
+    }
+}
+
+DP.

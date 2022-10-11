@@ -1,0 +1,77 @@
+//hash map approach
+//check the edge case
+
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        Map<Integer,Integer> map = new HashMap<>();
+        List<Integer> res = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(nums[i])){
+                int count = map.get(nums[i]);   
+                map.put(nums[i],count+1);
+                // System.out.println(nums[i]+" "+map.get(nums[i]));
+                if(map.get(nums[i])>(nums.length/3) && !res.contains(nums[i])) {
+                    res.add(nums[i]);
+                }
+            }
+            else
+               map.put(nums[i],1);
+        }
+        if(res.isEmpty() && nums.length <3){
+            for(int i : nums)
+                res.add(i);
+        }
+        return res;
+    }
+}
+O(N)->time
+O(N)->space
+
+//boyre moore algorithm
+
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        int num1 =-1;
+        int num2=-1;
+        int c1=0,c2=0;
+        List<Integer> res = new ArrayList<>();
+        for(int i : nums){
+            if(i == num1){
+                c1++;
+            }
+            else if(i == num2){
+                c2++;
+            }
+            else if(c1==0){
+                num1=i;
+                c1=1;
+            }
+            else if(c2==0){
+                num2=i;
+                c2=1;
+            }
+            else{
+                c1--;
+                c2--;
+            }
+        }
+        int count1=0,count2=0;
+        for(int i : nums){
+            if(i == num1){
+                count1++;
+            }
+            else if(i==num2){
+                count2++;
+            }
+        }
+        if(count1 > nums.length/3){
+            res.add(num1);
+        }
+        if(count2 > nums.length/3){
+            res.add(num2);
+        }
+        return res;
+    }
+}
+O(n)*O(n)->time
+O(1)->space

@@ -1,0 +1,76 @@
+brute force approach:
+
+import java.util.*;
+class Solution {
+    public void sortColors(int[] nums) {
+        List<Integer> red = new ArrayList<>();
+        List<Integer> white = new ArrayList<>();
+        List<Integer> blue = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] == 0){
+                red.add(0);
+            }
+        }
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] == 1){
+                white.add(1);
+            }
+        }
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] == 2){
+                blue.add(2);
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        while(!red.isEmpty()){
+            result.add(red.remove(0));
+        }
+        while(!white.isEmpty()){
+            result.add(white.remove(0));
+        }
+        while(!blue.isEmpty()){
+            result.add(blue.remove(0));
+        }
+        // System.out.println(result);
+        for(int i=0;i<nums.length;i++){
+            nums[i] = result.remove(0);
+        }
+    }
+}
+
+we iterate the array 5 times so O(n^5)
+* first 3 times for finding whether it is 0 or 1 or 2
+* next is itertaing the list for adding it to result list. in combined the all 3 list gonna cotains n elements where n is 
+  the number of elements in array. so O(n) for adding elements to result array
+* we gonna replace each item in nums array by the result list for inpalce condition
+
+import java.util.*;
+class Solution {
+    public void sortColors(int[] nums) {
+     int length = nums.length;
+     int low = 0,mid = 0,high = length-1;
+     while(mid <=high){
+         if(nums[mid]==0){
+             swap(nums,low,mid);
+             mid++;
+             low++;
+             continue;
+         }
+         if(nums[mid]==1){
+             mid++;
+             continue;
+         }
+         if(nums[mid]==2){
+             swap(nums,mid,high);
+             high--;
+             continue;
+         }
+       }
+    }
+    public void swap(int[] nums,int i,int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+this one is O(n) as we traverese the arr only once

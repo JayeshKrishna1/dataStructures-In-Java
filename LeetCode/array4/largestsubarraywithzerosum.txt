@@ -1,0 +1,24 @@
+ int maxLen(int arr[], int n)
+    {
+        // Your code here
+        Map<Integer,Integer> map =new HashMap<>();
+        int max=0,sum=0;int count=0;
+        for(int i : arr){
+            sum+=i;
+            count++;
+            if(sum == 0){
+                max = Math.max(max,count);
+            }
+            else if(map.containsKey(sum)){
+                int len = (count-1)-map.get(sum);
+                max = Math.max(max,len);
+            }
+            else if(!map.containsKey(sum)){
+                map.put(sum,count-1);
+            }
+        }
+        return max;
+    }
+
+    O(N log N)-> log N for HashMap itertaion
+    O(N)-> space

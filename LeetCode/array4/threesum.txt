@@ -1,0 +1,35 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        if(nums.length == 0 || nums.length <3){
+            return list;
+        }
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++){
+            int j=i+1;
+            int k=nums.length-1;
+            while(j<k){
+                int target = nums[i]+nums[j]+nums[k];
+                if(target < 0){
+                    j++;
+                }
+                else if(target >0){
+                    k--;
+                }
+                else{
+                    List<Integer> triple = new ArrayList<>();
+                    triple.add(nums[i]);
+                    triple.add(nums[j]);
+                    triple.add(nums[k]);
+                    list.add(triple);
+                    while(j+1 < nums.length && nums[j+1] == nums[j]) j++;
+                    while(j< k && nums[k-1] == nums[k]) k--;
+                    j++;
+                    k--;
+                }
+            }
+            while(i+1 < nums.length && nums[i+1] == nums[i]) i++;
+        }
+        return list;
+    }
+}

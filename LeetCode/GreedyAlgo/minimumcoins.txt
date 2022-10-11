@@ -1,0 +1,36 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    int change = 49;
+	    int[] currencyArray = {1,2,5,10,20,50,100,500,1000};
+		System.out.println(minimumCoins(change,currencyArray));
+	}
+	public static int minimumCoins(int change,int[] arr){
+	   // System.out.println(change);
+	    int minCoins=0;
+	    int remainingChange = change;
+	   // System.out.println(remainingChange);
+	    while(remainingChange != 0){
+	        List<Integer> list = new ArrayList<>();
+	       // System.out.println(remainingChange);
+	        int index=0;
+	        for(int i : arr){
+	            if(i <= remainingChange){
+	                list.add(i);
+	            }
+	            index++;
+	        }
+	       // System.out.println(list);
+	        Collections.sort(list);
+	        int maxCoin = list.get(list.size()-1);
+	        int count = maxCoin;
+	        while(maxCoin <= remainingChange){
+	            maxCoin = maxCoin + count;
+	            minCoins++;
+	        }
+	        remainingChange = remainingChange -(maxCoin - count);
+	    }
+	    return minCoins;
+	}
+}

@@ -1,0 +1,181 @@
+brute force
+
+List<Integer> A = new ArrayList<>();
+        A.add(3);
+        A.add(1);
+        A.add(2);
+        A.add(5);
+        A.add(3);
+        List<Integer> list = new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
+        list = A;
+        Collections.sort(list);
+        for(int i=0;i<=list.size()-1;i++)
+        System.out.println(list.get(i));
+        for(int i=0;i<list.size()-1;i++){
+            System.out.println(list.get(i)+" "+list.get(i+1));
+            if(list.get(i) == list.get(i+1)){
+                result.add(list.get(i));
+                break;
+            }
+        }
+        for(int i=0;i<A.size();i++){
+            if(A.get(i) != i+1){
+                result.add(i+1);
+                break;
+            }
+        }
+        System.out.println(result);
+        // return result;
+
+O(n)+O(n)->time
+O(n)-> space        
+
+
+optimal
+
+List<Integer> A = new ArrayList<>();
+	    A.add(3);
+	    A.add(1);
+	    A.add(2);
+	    A.add(3);
+	    A.add(5);
+		List<Boolean> present = new ArrayList<Boolean>(Collections.nCopies(A.size()+1, false));
+      ArrayList<Integer> result = new ArrayList<>();
+      for(int i : A){
+          if(present.get(i)==true){
+              result.add(i);
+          }
+          present.set(i,true);
+      }
+      for(int i=1;i<present.size();i++){
+          if(present.get(i)== false){
+              result.add(i);
+          }
+      }
+      System.out.print(result);
+    //   return result;
+
+O(n)+O(n)
+O(n)
+
+//optimal xor approach
+//using bit manipulation
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    List<Integer> A = new ArrayList<>();
+	   // A.add(2);
+	   // A.add(1);
+	   // A.add(2);
+	   // A.add(4);
+	   // A.add(5);
+	   //--------------------
+	    A.add(3);
+	    A.add(1);
+	    A.add(2);
+	    A.add(5);
+	    A.add(3);
+	    int length = A.size();
+	    List<Integer> original = new ArrayList<>();
+	    for(int i=1;i<=A.size();i++){
+	        original.add(i);
+	    }
+	    int xor = A.get(0);
+	    for(int i=1;i<length;i++){
+	        xor = xor ^ A.get(i);
+	    }
+	    for(int i=0;i<length;i++){
+	        xor = xor ^ original.get(i);
+	    }
+	    System.out.println(xor);
+	    int x=0,y=0;
+	    int setPos = findSetBit(xor);
+	    System.out.println(setPos);
+	    for(int i=0;i<A.size();i++){
+	        if(isSetBit(A.get(i),setPos)){
+	            x = x^A.get(i);
+	            System.out.println(x);
+	        }
+	        else{
+	            y= y^A.get(i);
+	        }
+	    }
+	    for(int i = 0;i<original.size();i++){
+	        if(isSetBit(original.get(i),setPos)){
+	            x = x^original.get(i);
+	        }
+	        else{
+	            y= y^original.get(i);
+	        }
+	    }
+	    System.out.println(x+" "+y);
+	    List<Integer> res = new ArrayList<>();
+	    for(int i=0;i<A.size();i++){
+	        if(x==A.get(i)){
+	            res.add(x);
+	            res.add(y);
+	            break;
+	        }
+	    }
+	    if(res.isEmpty()){
+	        res.add(y);
+	        res.add(x);
+	    }
+	    System.out.println(res);
+	}
+	public static boolean isSetBit(int n,int setPos){
+	    int bit = bitRepresentation(n);
+	   // System.out.println(bit);
+	    int i=0;
+	    if(setPos == 0 && bit%10 == 1){
+	        return true;
+	    }
+	    else if(setPos == 0 && bit%10 != 1){
+	        return false;
+	    }
+	    while(i<=setPos){
+	        bit=bit/10;
+	        i++;
+	    }
+	    if(bit%10 == 1){
+	        return true;
+	    }
+	    return false;
+	}
+	public static int findSetBit(int n){
+	    int bit = bitRepresentation(n);
+	    int count =0;
+	    while(bit%10 != 1){
+	        bit=bit/10;
+	        count++;
+	    }
+	    return count;
+	}
+	public static int bitRepresentation(int n){
+	    String str="";
+	    while(n>=1){
+	        str += n%2;
+	        n=n/2;
+	    }
+	    Stack<Character> st = new Stack<>();
+	    for(char ch : str.toCharArray()){
+	        st.push(ch);
+	    }
+	    String bits="";
+	    while(!st.isEmpty()){
+	        bits+=st.pop();
+	    }
+	    int bit = Integer.parseInt(bits);
+	    return bit;
+	}
+	
+	
+}
+
+O(N) -> time
+O(N) -> space
+
+

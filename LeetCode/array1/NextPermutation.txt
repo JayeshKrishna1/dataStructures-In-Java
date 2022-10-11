@@ -1,0 +1,36 @@
+import java.util.*;
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int length = nums.length;
+        int i = length -2;
+        while(i >=0 && nums[i] >= nums[i+1]){
+            i--;
+        }
+        int j = length-1;
+        if(i >=0){
+            while(nums[i] >= nums[j]){
+                j--;
+            }
+            swap(nums,i,j);
+        }
+        reverse(nums,i+1,length-1);
+        
+    }
+    private void swap(int[] nums,int i,int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    private void reverse(int[] nums,int start,int end){
+        Stack<Integer> st = new Stack<>();
+        int temp = start;
+        while(temp <= end){
+            st.push(nums[temp]);
+            temp++;
+        }
+        while(!st.isEmpty()){
+            nums[start] = st.pop();
+            start++;
+        }
+    }
+}

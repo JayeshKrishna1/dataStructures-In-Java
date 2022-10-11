@@ -1,0 +1,26 @@
+public static int maxMeetings(int start[], int end[], int n)
+    {
+        // add your code here
+        List<int[]> list = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            list.add(new int[]{start[i],end[i],i+1});
+        }
+        //assume we have meeting that ends at 6pm,4pm,9pm.
+        //now which meeting will helf first?
+        //obviously the 4pm meeting followed by 6 and 9
+        //we cant skip a meeting and irrespective of duration of first meeting it gonna happen first
+        //if we have start time of meeting  overlaps with the end time of previous meeting we cant do the current meeting
+        Collections.sort(list,(a,b) -> a[1]-b[1]);
+        int count=1;
+        int[] meeting = list.get(0);
+        for(int i=1;i<list.size();i++){
+            int[] current = list.get(i);
+            if(meeting[1] < current[0]){
+                count++;
+                meeting[1] = current[1];
+            }
+        }
+        return count;
+    }
+    O(N)+O(N)+O(Nlog N) ~ O(N log N)
+    O(N)

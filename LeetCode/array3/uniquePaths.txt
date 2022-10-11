@@ -1,0 +1,75 @@
+//recursive approach
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        return uniquePaths(0,0,m,n,0);
+    }
+    public int uniquePaths(int i,int j,int m,int n,int count){
+        if(i == m || j == n){
+            return count;
+        }
+        if(i == m-1 && j==n-1){
+            return count+1;
+        }
+        count = uniquePaths(i+1,j,m,n,count);
+        count =uniquePaths(i,j+1,m,n,count);
+        return count;
+    }
+}
+
+time complexity,space complexity -> exponential
+as we go through all possible paths its going to be exponential -> for each call there will be 2 other calls.
+for that each 2 calls there will be other 2 calls.
+so 2^n complexity
+as we recursive uses callstack the space will be exponential
+for each call stack 2 other call stack is created and it is also goes exponential.
+2^N
+
+//dp approach
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for(int i = 0;i<m;i++){
+            for(int j=0;j<n;j++){
+                dp[i][j] = -1;
+            }
+        }
+        return uniquepaths(0,0,m,n,0,dp);
+    }
+    public int uniquepaths(int i,int j,int m,int n,int count,int[][] dp){
+        if(i == m || j== n){
+            return count;
+        }
+        if(i == m-1 && j == n-1){
+            dp[i][j] = count+1;
+            return count+1;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        count = uniquepaths(i+1,j,m,n,count,dp);
+        count = uniquepaths(i,j+1,m,n,count,dp);
+        return count;
+    }
+}
+
+O(N*M)->time
+O(N*M)_>space approximately
+
+//most optimal one uses combinations
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int N = m+n-2;
+        int R = m-1;
+        double res=1;
+        for(int i=1;i<=R;i++){
+            res = res * ((N-R)+i)/i;
+        }
+        return (int)res;
+    }
+    
+}
+O(m-1) or O(n-1) => depending on what we choosing
+O(1) -> space
